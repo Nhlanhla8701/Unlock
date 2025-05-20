@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Phone Unlock Simulation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    input[type="password"] {
+      padding: 0.5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .message {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    .locked {
+      color: red;
+    }
+
+    .unlocked {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Enter PIN to Unlock</h2>
+    <input type="password" id="pinInput" maxlength="4" placeholder="Enter 4-digit PIN" />
+    <br>
+    <button onclick="checkPin()">Unlock</button>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    const correctPIN = "1234";
+    let attempts = 3;
+
+    function checkPin() {
+      const input = document.getElementById("pinInput").value;
+      const message = document.getElementById("message");
+
+      if (input === correctPIN) {
+        message.textContent = "Phone unlocked!";
+        message.className = "message unlocked";
+      } else {
+        attempts--;
+        if (attempts > 0) {
+          message.textContent = Incorrect PIN. ${attempts} attempt(s) left.;
+          message.className = "message locked";
+        } else {
+          message.textContent = "Too many failed attempts. Phone is locked.";
+          message.className = "message locked";
+          document.getElementById("pinInput").disabled = true;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
